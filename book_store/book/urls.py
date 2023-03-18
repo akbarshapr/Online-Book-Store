@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomePageView, BookList, BookDetail, MyProfileView, MyProfileCreate
+from .views import HomePageView, BookList, BookDetail, MyProfileView, MyProfileCreate, MyProfileUpdate
 
 urlpatterns = [
     path('home/', HomePageView.as_view(), name='home'),

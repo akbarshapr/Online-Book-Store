@@ -73,11 +73,11 @@
         </div>
     </nav>
     <div class="container-fluid">
-    <form method="post" enctype="multipart/form-data">
-        {%csrf_token%}
-        {{ form.as_p }}
-        <input class="button" type="submit" value="Save">
-    </form>
+        <form method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            {{ form.as_p }}
+            <input class="button" type="submit" value="Save">
+        </form>
     </div>
     <footer class="site-footer">
         <div class="container">
