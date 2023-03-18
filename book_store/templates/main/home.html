@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>reads.com</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background: #f2f2f2;
+            text-align: center;
+        }
+        .navbar {
+            padding: 60px;
+            background: #8b0000;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #f2f2f2;
+            text-decoration: none;
+        }
+        .navbar-brand:hover {
+            background-color: transparent;
+            color: #f2f2f2;
+        }
+        .container-fluid {
+            padding: 120px;
+        }
+        .quote:not(:first-child) {
+            display: none;
+        }
+        a {
+            margin: 0 10px;
+            padding: 3px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: None;
+        }
+        .header-link {
+            margin: 0 10px;
+            padding: 5px;
+            border: 0px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+        .header-link:hover {
+            background-color: #f2f2f2;
+            color: #000;
+            text-decoration: None;
+        }
+        .site-footer {
+            background-color: #f8f8f8;
+            padding: 20px;
+            text-align: center;
+        }
+        .site-footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+        var quotes = $('#quotes-container .quote');
+        var quoteIndex = -1;
+
+        function showNextQuote() {
+            ++quoteIndex;
+            quotes.eq(quoteIndex % quotes.length)
+                .fadeIn(2000)
+                .delay(1000)
+                .fadeOut(2000, showNextQuote);
+        }
+
+            showNextQuote();
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <p class="navbar-brand  mx-auto">
+            Welcome to Reads.com
+            <br>
+            {% if request.user.is_authenticated %}
+            <small style="font-size: 14px;"><i>Hello {{user.username|title}}</i></small>
+            <br>
+            <a class="header-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <small style="font-size: 14px;"><i>Login Now and Browse Our Store</i></small>
+            <br>
+            <a class="header-link" href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </p>
+    </nav>
+    <div class="container-fluid" id="quotes-container">
+        <div class="quote">
+            <h5><i>There is no friend as Loyal as Book.<sub> - Ernest Hemingway</sub></i></h5>
+        </div>
+        <div class="quote">
+            <h5><i>Books are a uniquely portable magic.<sub> - Stephen King</sub></i></h5>
+        </div>
+        <div class="quote">
+            <h5><i>A book is a dream that you hold in your hand.<sub> - Neil Gaiman</sub></i></h5>
+        </div>
+        <br>
+        <a href="{% url 'books' %}">Explore</a>
+    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2023 Akbarsha. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

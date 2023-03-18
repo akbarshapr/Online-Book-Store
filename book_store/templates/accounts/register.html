@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reads.com</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: #f2f2f2;
+        }
+        .container-fluid {
+            padding: 30px;
+            align: center;
+        }
+        .navbar {
+            padding: 20px;
+            background: #8b0000;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #f2f2f2;
+            text-decoration: none;
+        }
+        .navbar-brand:hover {
+            background-color: transparent;
+            color: #f2f2f2;
+        }
+        form {
+            margin: 0 auto;
+            max-width: 500px;
+        }
+        .card {
+            border-radius: 0.30rem;
+            background-color: #fff;
+            padding: 2rem;
+            padding-bottom: 5px;
+            padding-top: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.3rem;
+            border-radius: 0.25rem;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            display: block;
+            margin: 0 auto;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            margin-top: 1rem;
+        }
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+        .alert {
+            margin-top: 0.5rem;
+            padding: 0.3rem;
+            border-radius: 8px;
+            border-color: #f5c6cb;
+            color: #721c24;
+            font-weight: bold;
+            text-align: center;
+        }
+        .alert ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .card p {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .card p a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .card p a:hover {
+            font-weight: bold;
+            color: #388E3C;
+        }
+        .site-footer {
+            background-color: #f8f8f8;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .site-footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <p class="navbar-brand mx-auto">
+            Join Reads.com Now !
+        </p>
+    </nav>
+    <div class="container-fluid">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="card">
+                <label>{{form.username.label}}</label>
+                {{form.username}}
+                {% if form.username.errors %}
+                    <div class="alert alert-danger" role="alert">{{ form.username.errors }}</div>
+                {% endif %}
+
+                <label>{{form.password1.label}}</label>
+                {{form.password1}}
+                {% if form.password1.errors %}
+                    <div class="alert alert-danger" role="alert">{{ form.password1.errors }}</div>
+                {% endif %}
+
+                <label>{{form.password2.label}}</label>
+                {{form.password2}}
+                {% if form.password2.errors %}
+                    <div class="alert alert-danger" role="alert">{{ form.password2.errors }}</div>
+                {% endif %}
+                <input class="button" type="submit" value="Register">
+                <p>Already have an account? <a href="{% url 'login' %}">Login Now!</a></p>
+            </div>
+        </form>
+    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2023 Akbarsha. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

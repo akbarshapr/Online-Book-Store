@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reads.com</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: #f2f2f2;
+        }
+        .container-fluid {
+            padding: 100px;
+            padding-top: 50px;
+            padding-bottom: 60px;
+            align: center;
+        }
+        .navbar {
+            padding: 20px;
+            background: #8b0000;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #f2f2f2;
+            text-decoration: none;
+        }
+        .navbar-brand:hover {
+            background-color: transparent;
+            color: #f2f2f2;
+        }
+        .card {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 50px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        .card form input[type="text"],
+        .card form input[type="password"] {
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .card form .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .card form .button:hover {
+            background-color: #3e8e41;
+        }
+        .card p {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .card p a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .card p a:hover {
+            font-weight: bold;
+            color: #388E3C;
+        }
+        .site-footer {
+            background-color: #f8f8f8;
+            padding: 20px 0;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .site-footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <p class="navbar-brand mx-auto">
+            Login to Reads.com
+        </p>
+    </nav>
+    <div class="container-fluid">
+        <div class="card">
+            <form method="POST">
+            {% csrf_token %}
+                <br>
+                <input id="username" type="text" name="username" placeholder="Username" required>
+                <br>
+                <input id="password" type="password" name="password" placeholder="Password" required>
+                {% if form.errors %}
+                    <p style="color:red;">Invalid username or password.</p>
+                {% endif %}
+                <input class="button" type="submit" value="Login">
+            </form>
+            <p>Don't have an account? <a href="{% url 'register' %}">Register Now!</a></p>
+        </div>
+    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2023 Akbarsha. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
