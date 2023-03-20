@@ -22,7 +22,7 @@
         }
         .navbar {
             padding: 20px;
-            background: #8b0000;
+            background: RebeccaPurple;
         }
         .navbar-brand {
             font-weight: bold;
@@ -131,13 +131,15 @@
                             <p class="text-success"><strong>Available for purchase</strong></p>
                             <div style="display: flex; align-items: center;">
                                 <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ books.price }} RS</p>
-                                <a class="btn btn-primary" href="">Buy Now</a>
+                                <a class="btn btn-primary" href="" style="font-size: 12px; margin-left: 10px;">Buy Now</a>
+                                <a class="btn btn-success" href="" style="font-size: 12px; margin-left: 10px;">Add to cart</a>
                             </div>
                         {% else %}
                             <p class="text-danger"><strong>Out of stock</strong></p>
                             <div style="display: flex; align-items: center;">
                                 <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ books.price }} RS</p>
-                                <a class="btn btn-danger disabled" href=""><s>Buy Now</s></a>
+                                <a class="btn btn-danger disabled" href="" style="font-size: 12px; margin-left: 10px;"><s>Buy Now</s></a>
+                                <a class="btn btn-success" href="" style="font-size: 12px; margin-left: 10px;">Add to cart</a>
                             </div>
                         {% endif %}
                     </li>

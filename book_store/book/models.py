@@ -29,7 +29,8 @@ class MyProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=20)
     email = models.EmailField(max_length=100)
-    pfp = models.ImageField(upload_to='profiles', null=True, blank=True, height_field=None, width_field=None, max_length=None)
+    pfp = models.ImageField(upload_to='profiles', null=True, blank=True, height_field=None, width_field=None,
+                            max_length=None)
     bio = models.CharField(max_length=200)
     favorites = models.ManyToManyField(Book)
     delivery_address = models.TextField(null=True, blank=True)

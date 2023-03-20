@@ -1,9 +1,11 @@
 from .models import Book, MyProfile
 
 from django.views.generic import TemplateView
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
 # Create your views here.
 
 
@@ -43,11 +45,3 @@ class MyProfileCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(MyProfileCreate, self).form_valid(form)
-
-
-class MyProfileUpdate(LoginRequiredMixin, UpdateView):
-    model = MyProfile
-    fields = ['name', 'email', 'pfp', 'bio', 'favorites', 'delivery_address']
-    success_url = reverse_lazy('myprofile')
-    template_name = 'book/update_profile.html'
-

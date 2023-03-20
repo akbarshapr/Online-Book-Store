@@ -5,16 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
-            background: #f2f2f2;
+            background: white;
             text-align: center;
         }
         .navbar {
             padding: 60px;
-            background: #8b0000;
+            background: RebeccaPurple;
         }
         .navbar-brand {
             font-weight: bold;
@@ -28,6 +32,7 @@
         }
         .container-fluid {
             padding: 120px;
+            font-family: 'Open Sans', sans-serif;
         }
         .quote:not(:first-child) {
             display: none;
@@ -61,6 +66,9 @@
             background-color: #f2f2f2;
             color: #000;
             text-decoration: None;
+        }
+        .contact {
+            padding-top: 100px;
         }
         .site-footer {
             background-color: #f8f8f8;
@@ -118,6 +126,27 @@
         </div>
         <br>
         <a href="{% url 'books' %}">Explore</a>
+    </div>
+    <div class="container-fluid" id="img-container">
+        <div class="row">
+            <div class="col-md-6" style="text-align: justify; padding-top: 60px;">
+                <h3>Explore Now!</h3>
+                <p>Create a profile for yourself and list your favourite books from our extensive collection.
+                    We have some fantastic deals. Join our community right away.</p>
+                <sub><b>Enjoy your reading !</b></sub>
+            </div>
+            <div class="col-md-6" style="justify-content: center;">
+                <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books_23-2149334862.jpg?w=740&t=st=1679326712~exp=1679327312~hmac=f1eb3b01455d137543934a41e3ddf037ae412d8c61aee06458c2e62a9a90d80d" height="300" width="300">
+            </div>
+            <div class="contact">
+                <h3>Contact Us</h3>
+                <br>
+                <a class="btn btn-outline-primary" href="https://www.instagram.com/akbrsha/"><i style="font-size: 20px;" class="bi bi-instagram"></i></a>
+                <a class="btn btn-outline-primary" href="https://www.facebook.com/people/Akbar-Sha/pfbid02fT5dQR1eEckMCnn5BehqLhbk89U2T54RjsBUDREVJ2M9xRGamAkwFL2gRiZ1cp2zl/"><i style="font-size: 20px;" class="bi bi-facebook"></i></a>
+                <a class="btn btn-outline-primary" href="https://t.me/akbrsha"><i style="font-size: 20px;" class="bi bi-telegram"></i></a>
+                <a class="btn btn-outline-primary" href="mailto:akbarshapr@gmail.com"><i style="font-size: 20px;" class="bi bi-envelope-at-fill"></i></a>
+            </div>
+        </div>
     </div>
     <footer class="site-footer">
         <div class="container">
