@@ -67,8 +67,14 @@
             color: #000;
             text-decoration: None;
         }
-        .contact {
-            padding-top: 100px;
+        .contact-container {
+            background-image: url('https://wallpaperaccess.com/full/645620.png');
+            background-size: cover;
+            background-position: center;
+            color: #000;
+        }
+        .contact-container .btn {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         .site-footer {
             background-color: #f8f8f8;
@@ -127,7 +133,7 @@
         <br>
         <a href="{% url 'books' %}">Explore</a>
     </div>
-    <div class="container-fluid" id="img-container">
+    <div class="container-details" id="img-container" style="padding: 120px; padding-bottom: 200px;">
         <div class="row">
             <div class="col-md-6" style="text-align: justify; padding-top: 60px;">
                 <h3>Explore Now!</h3>
@@ -138,15 +144,15 @@
             <div class="col-md-6" style="justify-content: center;">
                 <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books_23-2149334862.jpg?w=740&t=st=1679326712~exp=1679327312~hmac=f1eb3b01455d137543934a41e3ddf037ae412d8c61aee06458c2e62a9a90d80d" height="300" width="300">
             </div>
-            <div class="contact">
-                <h3>Contact Us</h3>
-                <br>
-                <a class="btn btn-outline-primary" href="https://www.instagram.com/akbrsha/"><i style="font-size: 20px;" class="bi bi-instagram"></i></a>
-                <a class="btn btn-outline-primary" href="https://www.facebook.com/people/Akbar-Sha/pfbid02fT5dQR1eEckMCnn5BehqLhbk89U2T54RjsBUDREVJ2M9xRGamAkwFL2gRiZ1cp2zl/"><i style="font-size: 20px;" class="bi bi-facebook"></i></a>
-                <a class="btn btn-outline-primary" href="https://t.me/akbrsha"><i style="font-size: 20px;" class="bi bi-telegram"></i></a>
-                <a class="btn btn-outline-primary" href="mailto:akbarshapr@gmail.com"><i style="font-size: 20px;" class="bi bi-envelope-at-fill"></i></a>
-            </div>
         </div>
+    </div>
+    <div class="contact-container" style="padding: 200px;">
+        <h3>Contact Us</h3>
+        <br>
+        <a class="btn btn-outline-light" href="https://www.instagram.com/akbrsha/"><i style="font-size: 20px;" class="bi bi-instagram"></i></a>
+        <a class="btn btn-outline-light" href="https://www.facebook.com/people/Akbar-Sha/pfbid02fT5dQR1eEckMCnn5BehqLhbk89U2T54RjsBUDREVJ2M9xRGamAkwFL2gRiZ1cp2zl/"><i style="font-size: 20px;" class="bi bi-facebook"></i></a>
+        <a class="btn btn-outline-light" href="https://t.me/akbrsha"><i style="font-size: 20px;" class="bi bi-telegram"></i></a>
+        <a class="btn btn-outline-light" href="mailto:akbarshapr@gmail.com"><i style="font-size: 20px;" class="bi bi-envelope-at-fill"></i></a>
     </div>
     <footer class="site-footer">
         <div class="container">
