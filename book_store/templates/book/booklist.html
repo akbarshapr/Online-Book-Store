@@ -31,6 +31,23 @@
             background-color: transparent;
             color: #f2f2f2;
         }
+        .search-wrapper {
+            padding: 30px;
+            text-align: center;
+        }
+        .search {
+            border: none;
+            width: 400px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        .search:focus {
+            outline: none;
+            border: 1px solid #ccc;
+        }
         .card {
             margin: 30px;
             border-radius: 8px;
@@ -45,9 +62,13 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         .card:hover img {
+            object-fit: cover;
             transform: scale(1.1);
         }
         .card img {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
             transition: all 0.3s ease;
         }
         .card-title {
@@ -91,7 +112,7 @@
             color: #000;
             text-decoration: None;
         }
-        i {
+        .user-icon {
             margin-right: 20px;
             padding: 10px;
             border: 0px;
@@ -99,7 +120,7 @@
             color: #f2f2f2;
             transition: background-color 0.3s ease;
         }
-        i:hover {
+        .user-icon:hover {
             border-radius: 30%;
             background-color: #f2f2f2;
             color: #000;
@@ -168,11 +189,9 @@
         </p>
         <div class="ml-auto" style="margin-left: auto;">
             <a class="header-link" href="{% url 'home' %}">Home</a>
-            <a class="header-link" href="">Contact</a>
-            <a class="header-link" href="">About</a>
         </div>
         <div class="dropdown">
-            <button type="button" class="btn dropdown" data-bs-toggle="dropdown"><i style="font-size:20px;" class="bi bi-person-circle"></i></button>
+            <button type="button" class="btn dropdown" data-bs-toggle="dropdown"><i style="font-size:20px;" class="bi bi-person-circle user-icon"></i></button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{% url 'myprofile' %}">My Profile</a></li>
                 <li><a class="dropdown-item" href="">My Cart</a></li>
@@ -183,11 +202,17 @@
         </div>
     </nav>
     <div class="container-fluid">
+        <div class="search-wrapper">
+            <form method="GET">
+                <input class="search" type="text" name="search-area" value="{{search_input}}" placeholder="Search with Book name or author name">
+                <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
         <div class="row">
             {% for book in books %}
             <div class="col-sm-3 d-flex align-items-stretch">
-                <div class="card" style="width: 150px;">
-                    <a href="{% url 'bookdetail' pk=book.pk %}"><img src ="{{ book.image_url }}" class = "card-img-top" alt=".." style="width: 150px;"></a>
+                <div class="card" style="width: 200px;">
+                    <a href="{% url 'bookdetail' pk=book.pk %}"><img src ="{{ book.image_url }}" class = "card-img-top" alt=".." style=""></a>
                     <div class="body">
                         <h5 class="card-title">{{ book.title }}</h5>
                         <p class="card-text">{{ book.price|floatformat:2 }}</p>

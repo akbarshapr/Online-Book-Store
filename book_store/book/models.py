@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 # Create your models here.
 class Genre(models.Model):
     name = models.CharField(max_length=50)
-    color = models.CharField(max_length=20, default="#000000")
+    color = models.CharField(max_length=20, default="#000000", unique=True)
 
     def __str__(self):
         return self.name
@@ -37,3 +38,20 @@ class MyProfile(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews')
+    name = models.ForeignKey(MyProfile, on_delete=models.CASCADE)
+    book_rating = models.IntegerField(default=0, validators=[MaxValueValidator(5), MinValueValidator(0)])
+    review = models.CharField(max_length=200)
+    likes = models.IntegerField(default=0)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def like(self):
+        self.likes += 1
+        self.save()
+
+    def __str__(self):
+        return self.review

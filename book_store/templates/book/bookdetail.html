@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <style>
@@ -59,7 +60,7 @@
         .card-title {
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
-        .card-text {
+        .card-description {
             padding-top: 10px;
         }
         .list-link {
@@ -89,11 +90,19 @@
             text-transform: uppercase;
             margin-right: 5px;
         }
+        .review-card {
+            margin-bottom: 10px;
+            padding: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .profile-picture {
+            width: 100%;
+            border-radius: 50%;
+        }
         .site-footer {
             background-color: #f8f8f8;
             padding: 20px 0;
             text-align: center;
-            position: absolute;
             bottom: 0;
             width: 100%;
         }
@@ -119,7 +128,7 @@
             <div class="col-md-3"><img src ="{{ books.image_url }}" class = "card-img-top" alt=".." style="width: 200px;"></div>
             <div class="col-md-9">
                 <h4 class="card-title">{{ books.title|title }}</h4>
-                <p align="justify" class="card-text"><i>{{ books.description }}</i></p>
+                <p align="justify" class="card-description"><i>{{ books.description }}</i></p>
                 <ul class="my-list">
                     <li><i>Author : <a class="list-link" href="{{ books.follow_author }}">{{ books.author }}</a></i></li>
                     <li>Genre:
@@ -146,6 +155,39 @@
                 </ul>
             </div>
         </div>
+    </div>
+    <div class="container-fluid">
+        {% if reviews %}
+        <h4>Reviews</h4>
+        <div class="review-container">
+            {% for review in reviews %}
+                <div class="card review-card">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <img src="{{ review.name.pfp.url }}" alt="{{ review.name.name }}" class="profile-picture">
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="card-text" style="font-weight: bold;">{{ review.user|title }}</div>
+                            <div class="card-text">{{ review.review }}</div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="card-text" style="font-weight: bold; margin">{{ review.book_rating }}/5&#9733;</div>
+                            <div>
+                                <form method="post" action="{% url 'like_review' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="review_id" value="{{ review.id }}">
+                                    <button type="submit" class="btn btn-outline-light" style="color: red; font-weight: bold; padding: 0px;">{{ review.likes }} <i class="bi bi-heart-fill"></i></button>
+                                </form>
+                            </div>
+                            <div class="card-text" style="font-size: 10px; font-weight: bold;">{{ review.date }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No reviews yet.</p>
+        {% endif %}
     </div>
     <footer class="site-footer">
         <div class="container">

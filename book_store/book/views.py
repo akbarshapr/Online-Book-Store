@@ -1,11 +1,12 @@
-from .models import Book, MyProfile
+from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect
+
+from .models import Book, MyProfile, Review
 
 from django.views.generic import TemplateView
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
-
 # Create your views here.
 
 
@@ -18,11 +19,33 @@ class BookList(LoginRequiredMixin, ListView):
     context_object_name = 'books'
     template_name = 'book/booklist.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['books'] = context['books'].filter(
+                Q(title__icontains=search_input) | Q(author__icontains=search_input))
+        context['search_input'] = search_input
+        return context
+
 
 class BookDetail(LoginRequiredMixin, DetailView):
     model = Book
     context_object_name = 'books'
     template_name = 'book/bookdetail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reviews'] = self.object.reviews.all()
+        return context
+
+
+def like_review(request):
+    if request.method == 'POST':
+        review_id = request.POST.get('review_id')
+        review = get_object_or_404(Review, id=review_id)
+        review.like()
+        return redirect('bookdetail', pk=review.book.pk)
 
 
 class MyProfileView(LoginRequiredMixin, ListView):
