@@ -1,7 +1,8 @@
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect
+from decimal import Decimal
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Book, MyProfile, Review
+from .models import Book, MyProfile, Review, Cart, CartItem
 
 from django.views.generic import TemplateView
 from django.views.generic import ListView, DetailView, CreateView
@@ -68,3 +69,38 @@ class MyProfileCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(MyProfileCreate, self).form_valid(form)
+
+
+# CART
+def cart(request):
+    cart_qs = Cart.objects.filter(user=request.user)
+    if cart_qs.exists():
+        cart_obj = cart_qs.first()
+        cart_items = CartItem.objects.filter(cart=cart_obj)
+    else:
+        cart_obj = None
+        cart_items = []
+
+    print(cart_items) # Add this line for debugging
+
+    context = {
+        'cart': cart_obj,
+        'cart_items': cart_items
+    }
+    return render(request, 'cart/mycart.html', context)
+
+
+def add_to_cart(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    cart_qs = Cart.objects.filter(user=request.user)
+    if cart_qs.exists():
+        cart_obj = cart_qs.first()
+    else:
+        cart_obj = Cart.objects.create(user=request.user, total_price=Decimal('0.00'))
+    cart_item, created = CartItem.objects.get_or_create(book=book, cart=cart_obj)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+    cart_obj.total_price += Decimal(str(book.price))
+    cart_obj.save()
+    return redirect('mycart')

@@ -50,12 +50,12 @@
             color: #000;
             text-decoration: None;
         }
-        img:hover {
-            transform: scale(1.1);
-        }
-        img {
+        .book-img {
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .book-img:hover {
+            transform: scale(1.1);
         }
         .card-title {
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
@@ -92,11 +92,14 @@
         }
         .review-card {
             margin-bottom: 10px;
+            border: none;
             padding: 12px;
+            background-color: rgba(255, 255, 255, 0.2);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         .profile-picture {
             width: 100%;
+            border: 2px solid black;
             border-radius: 50%;
         }
         .site-footer {
@@ -125,7 +128,7 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3"><img src ="{{ books.image_url }}" class = "card-img-top" alt=".." style="width: 200px;"></div>
+            <div class="col-md-3"><img src ="{{ books.image_url }}" class="card-img-top book-img" alt=".." style="width: 200px;"></div>
             <div class="col-md-9">
                 <h4 class="card-title">{{ books.title|title }}</h4>
                 <p align="justify" class="card-description"><i>{{ books.description }}</i></p>
@@ -137,19 +140,19 @@
                         {% endfor %}
                     </li>
                     <li>{% if books.book_available is True %}
-                            <p class="text-success"><strong>Available for purchase</strong></p>
-                            <div style="display: flex; align-items: center;">
-                                <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ books.price }} RS</p>
-                                <a class="btn btn-primary" href="" style="font-size: 12px; margin-left: 10px;">Buy Now</a>
-                                <a class="btn btn-success" href="" style="font-size: 12px; margin-left: 10px;">Add to cart</a>
-                            </div>
+                        <p class="text-success"><strong>Available for purchase</strong></p>
+                        <div style="display: flex; align-items: center;">
+                            <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ books.price }} RS</p>
+                            <a class="btn btn-primary" href="" style="font-size: 12px; margin-left: 10px;">Buy Now</a>
+                            <a class="btn btn-success" href="{% url 'add_to_cart' book_id=books.id %}" style="font-size: 12px; margin-left: 10px;">Add to cart</a>
+                        </div>
                         {% else %}
-                            <p class="text-danger"><strong>Out of stock</strong></p>
-                            <div style="display: flex; align-items: center;">
-                                <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ books.price }} RS</p>
-                                <a class="btn btn-danger disabled" href="" style="font-size: 12px; margin-left: 10px;"><s>Buy Now</s></a>
-                                <a class="btn btn-success" href="" style="font-size: 12px; margin-left: 10px;">Add to cart</a>
-                            </div>
+                        <p class="text-danger"><strong>Out of stock</strong></p>
+                        <div style="display: flex; align-items: center;">
+                            <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ books.price }} RS</p>
+                            <a class="btn btn-danger disabled" href="" style="font-size: 12px; margin-left: 10px;"><s>Buy Now</s></a>
+                            <a class="btn btn-success" href="{% url 'add_to_cart' book_id=books.id %}" style="font-size: 12px; margin-left: 10px;">Add to cart</a>
+                        </div>
                         {% endif %}
                     </li>
                 </ul>
@@ -186,7 +189,9 @@
             {% endfor %}
         </div>
         {% else %}
-        <p>No reviews yet.</p>
+        <div class="card review-card" style="text-align: center;">
+            <p style="font-weight: bold;">No reviews yet.</p>
+        </div>
         {% endif %}
     </div>
     <footer class="site-footer">

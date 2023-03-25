@@ -55,3 +55,22 @@ class Review(models.Model):
 
     def __str__(self):
         return self.review
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Book)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+
+class CartItem(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.quantity} x {self.book}'
+
+    @property
+    def total_price(self):
+        return self.book.price * self.quantity

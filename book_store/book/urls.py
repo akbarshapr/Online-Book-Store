@@ -11,4 +11,8 @@ urlpatterns = [
     path('createprofile/', MyProfileCreate.as_view(), name='createprofile'),
 
     path('like_review/', views.like_review, name='like_review'),
+
+    path('cart/', views.cart, name='mycart'),
+    path('cart/add/<int:book_id>/', views.add_to_cart, name='add_to_cart'),
+
 ]
