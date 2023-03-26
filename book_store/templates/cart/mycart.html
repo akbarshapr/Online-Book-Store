@@ -5,11 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <style>
         body {
             background: white;
+            font-family: 'Poppins', sans-serif;
             height: 100%;
             margin: 0;
         }
@@ -96,6 +101,9 @@
         </div>
     </nav>
     <div class="container-fluid">
+        <div class="title" style="text-align: center; justify-content: center; margin-bottom: 20px; display: flex;">
+            <h2 style="margin-right: 20px;">My Cart</h2><img src="https://media.giphy.com/media/Aik2hwXn0dUTrVkbIP/giphy.gif" height="40px" width="40px">
+        </div>
         {% if cart_items %}
         <ul class="list-group">
             {% for cart_item in cart_items %}
@@ -105,20 +113,20 @@
                         <img src="{{ cart_item.book.image_url }}" class="card-img" alt="{{ cart_item.book.title }}">
                     </div>
                     <div class="col-sm-10">
-                        <h4>{{ cart_item.book.title }}</h4>
-                        <p><strong>Price:</strong> &#8377 {{ cart_item.book.price }} per Book</p>
-                        <p><strong>Quantity:</strong> {{ cart_item.quantity }}</p>
-                        <p><strong>Total:</strong> &#8377 {{ cart_item.total_price }}</p>
+                        <h5>{{ cart_item.book.title }}</h5>
+                        <p style="font-size: 14px;"><strong>Price:</strong> &#8377 {{ cart_item.book.price }} per Book</p>
+                        <p style="font-size: 14px;"><strong>Quantity:</strong> {{ cart_item.quantity }}</p>
+                        <p style="font-size: 14px;"><strong>Total:</strong> &#8377 {{ cart_item.total_price }}</p>
                     </div>
                     <div class="col-sm-1 col-sm-1 d-flex align-items-center justify-content-center">
-                        <a class="btn btn-outline-danger" style="font-size: 10px; font-weight: bold; margin-right: 20px;" href="">Remove</a>
+                        <a class="btn btn-outline-danger" style="font-size: 16px; margin-right: 20px;" href="{% url 'remove_from_cart' book_id=cart_item.book.id %}"><i class="bi bi-trash3-fill"></i></a>
                     </div>
                 </div>
             </li>
             {% endfor %}
             <li class="list-group-item list-group-item-info">
                 <p>Total: &#8377 {{ cart_items.0.cart.total_price }}
-                <a class="btn btn-outline-primary" style="font-size: 10px; font-weight: bold; margin-left: 20px; margin-right: 15px;" href="">Purchase</a>
+                <a class="btn btn-outline-primary" style="font-size: 12px; font-weight: bold; margin-left: 20px; margin-right: 15px;" href="">Buy</a>
                 </p>
             </li>
         </ul>

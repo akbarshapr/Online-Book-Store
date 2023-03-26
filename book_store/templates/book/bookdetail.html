@@ -10,14 +10,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <style>
         body {
-            background: #f2f2f2;
+            background: white;
             height: 100%;
             margin: 0;
         }
         .container-fluid {
             min-height: 100%;
             position: relative;
-            padding: 100px;
+            padding: 120px;
             padding-top: 50px;
             align: center;
         }
@@ -130,7 +130,10 @@
         <div class="row">
             <div class="col-md-3"><img src ="{{ books.image_url }}" class="card-img-top book-img" alt=".." style="width: 200px;"></div>
             <div class="col-md-9">
-                <h4 class="card-title">{{ books.title|title }}</h4>
+                <div style="display: flex;">
+                    <h4 class="card-title">{{ books.title|title }}</h4>
+                    <a class="bookmark-btn" href=""><i style="margin-left: 20px; font-size: 22px; color: red;" class="bi bi-bookmark-heart"></i></a>
+                </div>
                 <p align="justify" class="card-description"><i>{{ books.description }}</i></p>
                 <ul class="my-list">
                     <li><i>Author : <a class="list-link" href="{{ books.follow_author }}">{{ books.author }}</a></i></li>
@@ -189,6 +192,7 @@
             {% endfor %}
         </div>
         {% else %}
+        <h4>Reviews</h4>
         <div class="card review-card" style="text-align: center;">
             <p style="font-weight: bold;">No reviews yet.</p>
         </div>

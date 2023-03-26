@@ -1,20 +1,23 @@
 from django.db.models import Q
 from decimal import Decimal
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Book, MyProfile, Review, Cart, CartItem
 
 from django.views.generic import TemplateView
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 # Create your views here.
 
 
+# Home Page
 class HomePageView(TemplateView):
     template_name = 'main/home.html'
 
 
+# Book Views
 class BookList(LoginRequiredMixin, ListView):
     model = Book
     context_object_name = 'books'
@@ -41,6 +44,8 @@ class BookDetail(LoginRequiredMixin, DetailView):
         return context
 
 
+# Like
+@login_required
 def like_review(request):
     if request.method == 'POST':
         review_id = request.POST.get('review_id')
@@ -49,6 +54,7 @@ def like_review(request):
         return redirect('bookdetail', pk=review.book.pk)
 
 
+# My Profile
 class MyProfileView(LoginRequiredMixin, ListView):
     model = MyProfile
     context_object_name = 'myprofile'
@@ -71,7 +77,18 @@ class MyProfileCreate(LoginRequiredMixin, CreateView):
         return super(MyProfileCreate, self).form_valid(form)
 
 
+class MyProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = MyProfile
+    fields = ['name', 'email', 'pfp', 'bio', 'favorites', 'delivery_address']
+    success_url = reverse_lazy('myprofile')
+    template_name = 'book/create_profile.html'
+
+    def get_object(self, queryset=None):
+        return MyProfile.objects.get(user=self.request.user)
+
+
 # CART
+@login_required
 def cart(request):
     cart_qs = Cart.objects.filter(user=request.user)
     if cart_qs.exists():
@@ -81,8 +98,6 @@ def cart(request):
         cart_obj = None
         cart_items = []
 
-    print(cart_items) # Add this line for debugging
-
     context = {
         'cart': cart_obj,
         'cart_items': cart_items
@@ -90,6 +105,7 @@ def cart(request):
     return render(request, 'cart/mycart.html', context)
 
 
+@login_required
 def add_to_cart(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     cart_qs = Cart.objects.filter(user=request.user)
@@ -103,4 +119,23 @@ def add_to_cart(request, book_id):
         cart_item.save()
     cart_obj.total_price += Decimal(str(book.price))
     cart_obj.save()
+    return redirect('mycart')
+
+
+@login_required
+def remove_from_cart(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    cart_qs = Cart.objects.filter(user=request.user)
+    if cart_qs.exists():
+        cart_obj = cart_qs.first()
+        cart_item_qs = CartItem.objects.filter(book=book, cart=cart_obj)
+        if cart_item_qs.exists():
+            cart_item = cart_item_qs.first()
+            if cart_item.quantity > 1:
+                cart_item.quantity -= 1
+                cart_item.save()
+            else:
+                cart_item.delete()
+            cart_obj.total_price -= Decimal(str(book.price))
+            cart_obj.save()
     return redirect('mycart')
