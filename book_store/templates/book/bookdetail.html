@@ -17,7 +17,7 @@
         .container-fluid {
             min-height: 100%;
             position: relative;
-            padding: 120px;
+            padding: 100px;
             padding-top: 50px;
             align: center;
         }
@@ -90,13 +90,6 @@
             text-transform: uppercase;
             margin-right: 5px;
         }
-        .review-card {
-            margin-bottom: 10px;
-            border: none;
-            padding: 12px;
-            background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
         .profile-picture {
             width: 100%;
             border: 2px solid black;
@@ -132,7 +125,6 @@
             <div class="col-md-9">
                 <div style="display: flex;">
                     <h4 class="card-title">{{ books.title|title }}</h4>
-                    <a class="bookmark-btn" href=""><i style="margin-left: 20px; font-size: 22px; color: red;" class="bi bi-bookmark-heart"></i></a>
                 </div>
                 <p align="justify" class="card-description"><i>{{ books.description }}</i></p>
                 <ul class="my-list">
@@ -145,14 +137,14 @@
                     <li>{% if books.book_available is True %}
                         <p class="text-success"><strong>Available for purchase</strong></p>
                         <div style="display: flex; align-items: center;">
-                            <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ books.price }} RS</p>
+                            <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;"> &#8377 {{ books.price }} RS</p>
                             <a class="btn btn-primary" href="" style="font-size: 12px; margin-left: 10px;">Buy Now</a>
                             <a class="btn btn-success" href="{% url 'add_to_cart' book_id=books.id %}" style="font-size: 12px; margin-left: 10px;">Add to cart</a>
                         </div>
                         {% else %}
                         <p class="text-danger"><strong>Out of stock</strong></p>
                         <div style="display: flex; align-items: center;">
-                            <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ books.price }} RS</p>
+                            <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;"> &#8377 {{ books.price }}</p>
                             <a class="btn btn-danger disabled" href="" style="font-size: 12px; margin-left: 10px;"><s>Buy Now</s></a>
                             <a class="btn btn-success" href="{% url 'add_to_cart' book_id=books.id %}" style="font-size: 12px; margin-left: 10px;">Add to cart</a>
                         </div>
@@ -161,42 +153,6 @@
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
-        {% if reviews %}
-        <h4>Reviews</h4>
-        <div class="review-container">
-            {% for review in reviews %}
-                <div class="card review-card">
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <img src="{{ review.name.pfp.url }}" alt="{{ review.name.name }}" class="profile-picture">
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="card-text" style="font-weight: bold;">{{ review.user|title }}</div>
-                            <div class="card-text">{{ review.review }}</div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="card-text" style="font-weight: bold; margin">{{ review.book_rating }}/5&#9733;</div>
-                            <div>
-                                <form method="post" action="{% url 'like_review' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="review_id" value="{{ review.id }}">
-                                    <button type="submit" class="btn btn-outline-light" style="color: red; font-weight: bold; padding: 0px;">{{ review.likes }} <i class="bi bi-heart-fill"></i></button>
-                                </form>
-                            </div>
-                            <div class="card-text" style="font-size: 10px; font-weight: bold;">{{ review.date }}</div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <h4>Reviews</h4>
-        <div class="card review-card" style="text-align: center;">
-            <p style="font-weight: bold;">No reviews yet.</p>
-        </div>
-        {% endif %}
     </div>
     <footer class="site-footer">
         <div class="container">

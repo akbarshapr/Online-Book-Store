@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Book, MyProfile, Review, Cart, CartItem
+from .models import Book, MyProfile, Cart, CartItem
 
 from django.views.generic import TemplateView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -38,13 +38,7 @@ class BookDetail(LoginRequiredMixin, DetailView):
     context_object_name = 'books'
     template_name = 'book/bookdetail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['reviews'] = self.object.reviews.all()
-        return context
 
-
-# Like
 @login_required
 def like_review(request):
     if request.method == 'POST':
@@ -52,6 +46,18 @@ def like_review(request):
         review = get_object_or_404(Review, id=review_id)
         review.like()
         return redirect('bookdetail', pk=review.book.pk)
+
+
+# favorites
+@login_required
+def toggle_favorite(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    user_profile = get_object_or_404(MyProfile, user=request.user)
+    if book in user_profile.favorites.all():
+        user_profile.favorites.remove(book)
+    else:
+        user_profile.favorites.add(book)
+    return redirect('books')
 
 
 # My Profile
