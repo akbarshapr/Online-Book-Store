@@ -100,7 +100,6 @@
         .header-link {
             margin: 0 10px;
             padding: 5px;
-            border: 0px;
             border-radius: 5px;
             text-decoration: none;
             color: #f2f2f2;
@@ -115,7 +114,6 @@
         .user-icon {
             margin-right: 20px;
             padding: 10px;
-            border: 0px;
             border-radius: 10px;
             color: #f2f2f2;
             transition: background-color 0.3s ease;
@@ -126,7 +124,7 @@
             color: #000;
             text-decoration: None;
         }
-        dropdown {
+        .dropdown {
             border: none;
         }
         .dropdown:hover {
@@ -170,6 +168,24 @@
             color: #fff;
             text-decoration: None;
         }
+        .bi-bookmark-heart {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 10px;
+            font-size: 22px;
+            color: red;
+            transition: transform 0.5s ease-in-out;
+        }
+        .bi-bookmark-heart-fill {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 10px;
+            font-size: 22px;
+            color: red;
+            transition: transform 0.5s ease-in-out;
+        }
         .site-footer {
             background-color: #f8f8f8;
             padding: 20px 0;
@@ -183,6 +199,7 @@
     </style>
     <script>
 
+
     </script>
 </head>
 <body>
@@ -193,16 +210,16 @@
         <div class="ml-auto" style="margin-left: auto;">
             <a class="header-link" href="{% url 'home' %}">Home</a>
         </div>
-        <div class="dropdown">
-            <button type="button" class="btn dropdown" data-bs-toggle="dropdown"><i style="font-size:20px;" class="bi bi-person-circle user-icon"></i></button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'myprofile' %}">My Profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'mycart' %}">My Cart</a></li>
-                <li><a class="dropdown-item" href="">My Orders</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-            </ul>
-        </div>
+            <div class="dropdown">
+                <button type="button" class="btn dropdown" data-bs-toggle="dropdown"><i style="font-size:20px;" class="bi bi-person-circle user-icon"></i></button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'myprofile' %}">My Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'mycart' %}">My Cart</a></li>
+                    <li><a class="dropdown-item" href="">My Orders</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </div>
     </nav>
     <div class="container-fluid">
         <div class="search-wrapper">
@@ -215,9 +232,15 @@
             {% for book in books %}
             <div class="col-sm-3 d-flex align-items-stretch">
                 <div class="card" style="width: 200px;">
-                    <a href="{% url 'toggle_favorite' book.id %}" class="favorite-link">
-                        <i style="position: absolute; top: 0; right: 0; margin: 10px; font-size: 22px; color: red;" class="bi bi-bookmark-heart-fill"></i>
+                    {% if book in myprofile.favorites.all %}
+                    <a href="{% url 'toggle_favorite' book.id %}" class="favorite-link" onclick="">
+                        <i class="bi bi-bookmark-heart-fill"></i>
                     </a>
+                    {% else %}
+                    <a href="{% url 'toggle_favorite' book.id %}" class="favorite-link" onclick="">
+                        <i class="bi bi-bookmark-heart-fill"></i>
+                    </a>
+                    {% endif %}
                     <a href="{% url 'bookdetail' pk=book.pk %}"><img src ="{{ book.image_url }}" class = "card-img-top" alt=".." style=""></a>
                     <div class="body">
                         <h5 class="card-title">{{ book.title }}</h5>

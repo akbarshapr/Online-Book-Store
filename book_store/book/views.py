@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Book, MyProfile, Cart, CartItem
+from .models import Book, MyProfile, Cart, CartItem, SiteReview
 
 from django.views.generic import TemplateView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -37,15 +37,6 @@ class BookDetail(LoginRequiredMixin, DetailView):
     model = Book
     context_object_name = 'books'
     template_name = 'book/bookdetail.html'
-
-
-@login_required
-def like_review(request):
-    if request.method == 'POST':
-        review_id = request.POST.get('review_id')
-        review = get_object_or_404(Review, id=review_id)
-        review.like()
-        return redirect('bookdetail', pk=review.book.pk)
 
 
 # favorites
@@ -145,3 +136,21 @@ def remove_from_cart(request, book_id):
             cart_obj.total_price -= Decimal(str(book.price))
             cart_obj.save()
     return redirect('mycart')
+
+
+# Site Reviews
+class SiteReviewView(ListView):
+    model = SiteReview
+    context_object_name = 'reviews'
+    template_name = 'main/review.html'
+
+
+class SiteReviewCreate(LoginRequiredMixin, CreateView):
+    model = SiteReview
+    context_object_name = 'reviewcreate'
+    fields = ['review', 'rating']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.name = self.request.user.myprofile
+        return super().form_valid(form)
