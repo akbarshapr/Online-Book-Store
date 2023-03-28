@@ -7,7 +7,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
     <style>
         body {
             background: white;
@@ -87,6 +91,11 @@
             color: #666;
         }
     </style>
+    <script>
+        $(document).ready(function(){
+            $('#deleteModal{{ review.pk }}').modal();
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar">
@@ -100,7 +109,7 @@
     <div class="container-fluid">
         <div style="display: flex;">
             <h4>Reviews</h4>
-            <a style="font-weight: bold; font-size: 20px; color: Red; border: none; margin-left: 450px;" class="btn" href=""><i class="bi bi-plus-circle"></i></a>
+            <a style="font-weight: bold; font-size: 20px; color: Red; border: none; margin-left: 450px;" href="{% url 'reviewcreate' %}"><i class="bi bi-plus-circle"></i></a>
         </div>
         <div class="row">
             <div class="col-lg-6 scrollable" style="height: 450px; overflow-y: scroll;">
@@ -114,18 +123,46 @@
                         </div>
                         <div class="col-sm-8">
                             <p style="font-weight: bold;">{{ review.name }}</p>
-                            <p>{{ review.review }}</p>
+                            <p><a href="{% url 'reviewupdate' review.pk %}">{{ review.review }}</a></p>
                         </div>
-                        <div class="col-sm-2" style="padding: 10px;"><p style="font-weight: bold;">{{ review.rating }}/5 <i style="color: orange;" class="bi bi-star-fill"></i></p></div>
+                        <div class="col-sm-2" style="padding: 10px;">
+                            <p style="font-weight: bold;">{{ review.rating }}/5 <i style="color: orange;" class="bi bi-star-fill"></i></p>
+                            {% if review.user == request.user %}
+                            <button style="font-size: 12px;" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ review.pk }}"><i class="bi bi-trash3"></i></button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!--    Delete Modal-->
+                <div class="modal fade" id="deleteModal{{ review.pk }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ review.pk }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel{{ review.pk }}">Delete Review</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this review?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <form action="{% url 'reviewdelete' review.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
             <div class="col-lg-6">
-                <img src="https://img.freepik.com/free-vector/social-network-user-popularity-photo-rating-activity-indicator-likes-quantity-positive-negative-reviews-number-avatar-profile-picture_335657-2969.jpg?w=740&t=st=1679937412~exp=1679938012~hmac=b6e82a993dbdc2b18674b0608505c5abe85609ab51ba04a225f1f90e33e5b8ce" height="450" width="450" style="float: right;">
+                <img src="https://img.freepik.com/free-vector/feedback-concept-illustration_114360-4928.jpg?w=740&t=st=1680021769~exp=1680022369~hmac=b96f039c0131d6246833b0f2419df74e722058c871c3e5399ee022151954d5d0" height="450" width="450" style="float: right;">
             </div>
         </div>
-<!--        Review Modal-->
     </div>
     <footer class="site-footer">
         <div class="container">

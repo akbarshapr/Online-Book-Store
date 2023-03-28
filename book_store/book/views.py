@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .models import Book, MyProfile, Cart, CartItem, SiteReview
 
 from django.views.generic import TemplateView
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 # Create your views here.
 
@@ -149,8 +149,33 @@ class SiteReviewCreate(LoginRequiredMixin, CreateView):
     model = SiteReview
     context_object_name = 'reviewcreate'
     fields = ['review', 'rating']
+    template_name = 'main/create-review.html'
+    success_url = reverse_lazy('reviews')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.name = self.request.user.myprofile
+        myprofile = MyProfile.objects.get(user=self.request.user)
+        form.instance.name = myprofile
         return super().form_valid(form)
+
+
+class SiteReviewDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = SiteReview
+    fields = '__all__'
+    template_name = 'main/review.html'
+    success_url = reverse_lazy('reviews')
+
+    def test_func(self):
+        review = self.get_object()
+        return review.user == self.request.user
+
+
+class SiteReviewUpdate(LoginRequiredMixin, UpdateView):
+    model = SiteReview
+    fields = ['review', 'rating']
+    template_name = 'main/create-review.html'
+    success_url = reverse_lazy('reviews')
+
+    def test_func(self):
+        review = self.get_object()
+        return review.user == self.request.user

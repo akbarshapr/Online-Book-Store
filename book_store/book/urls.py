@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import HomePageView, BookList, BookDetail, MyProfileView, MyProfileCreate, MyProfileUpdate, \
-    toggle_favorite, cart, add_to_cart, remove_from_cart, SiteReviewView, SiteReviewCreate
+    toggle_favorite, cart, add_to_cart, remove_from_cart, SiteReviewView, SiteReviewCreate, SiteReviewDelete, \
+    SiteReviewUpdate
 
 urlpatterns = [
     path('home/', HomePageView.as_view(), name='home'),
@@ -17,5 +18,8 @@ urlpatterns = [
     path('remove-from-cart/<int:book_id>/', remove_from_cart, name='remove_from_cart'),
 
     path('reviews/', SiteReviewView.as_view(), name='reviews'),
-    path('reviewcreate/', SiteReviewCreate.as_view, name='reviewcreate')
+    path('reviewcreate/', SiteReviewCreate.as_view(), name='reviewcreate'),
+    path('reviewdelete/<int:pk>/', SiteReviewDelete.as_view(), name='reviewdelete'),
+    path('reviewupdate/<int:pk>/', SiteReviewUpdate.as_view(), name='reviewupdate')
+
 ]
