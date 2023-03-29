@@ -78,6 +78,28 @@
             background-color: #888;
             border-radius: 5px;
         }
+        .dropdown-toggle {
+            background-color: transparent;
+            border: none;
+        }
+        .dropdown-toggle:focus {
+            box-shadow: none;
+        }
+        .dropdown-toggle::after {
+            display: none;
+        }
+        .dropdown-toggle .bi {
+            font-size: 16px;;
+        }
+        .dropdown-item {
+            cursor: pointer;
+        }
+        .dropdown-item:hover {
+            background: RebeccaPurple;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+        }
         .site-footer {
             background-color: #f8f8f8;
             padding: 20px 0;
@@ -108,7 +130,7 @@
     </nav>
     <div class="container-fluid">
         <div style="display: flex;">
-            <h4>Reviews</h4>
+            <h4 style="margin-bottom: 20px;">Reviews</h4>
             <a style="font-weight: bold; font-size: 20px; color: Red; border: none; margin-left: 450px;" href="{% url 'reviewcreate' %}"><i class="bi bi-plus-circle"></i></a>
         </div>
         <div class="row">
@@ -123,13 +145,25 @@
                         </div>
                         <div class="col-sm-8">
                             <p style="font-weight: bold;">{{ review.name }}</p>
-                            <p><a href="{% url 'reviewupdate' review.pk %}">{{ review.review }}</a></p>
+                            {% if review.user == request.user %}
+                            <p><a style="text-decoration: none; color: #000;" href="{% url 'reviewupdate' review.pk %}">{{ review.review }}</a></p>
+                            {% else %}
+                            <p>{{ review.review }}</p>
+                            {% endif %}
                         </div>
                         <div class="col-sm-2" style="padding: 10px;">
-                            <p style="font-weight: bold;">{{ review.rating }}/5 <i style="color: orange;" class="bi bi-star-fill"></i></p>
                             {% if review.user == request.user %}
-                            <button style="font-size: 12px;" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ review.pk }}"><i class="bi bi-trash3"></i></button>
+                            <div class="dropdown">
+                                <button style="font-size: 10px;" class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a style="font-size: 14px;" class="dropdown-item" href="{% url 'reviewupdate' review.pk %}">Update Review</a>
+                                    <a style="font-size: 14px;" class="dropdown-item" href="" data-toggle="modal" data-target="#deleteModal{{ review.pk }}">Delete Review</a>
+                                </div>
+                            </div>
                             {% endif %}
+                            <p style="font-weight: bold;">{{ review.rating }}/5 <i style="color: orange;" class="bi bi-star-fill"></i></p>
                         </div>
                     </div>
                 </div>

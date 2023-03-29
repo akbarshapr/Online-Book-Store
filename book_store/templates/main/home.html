@@ -67,6 +67,11 @@
             color: #000;
             text-decoration: None;
         }
+        .card {
+            border: none;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
         .contact-container {
             background-image: url('https://wallpaperaccess.com/full/645620.png');
             background-size: cover;
@@ -143,7 +148,23 @@
                 <p>Create a profile for yourself and list your favourite books from our extensive collection.
                     We have some fantastic deals. Join our community right away.</p>
                 <p style="font-size: 14px; font-weight: bold;">Enjoy your reading !</p>
-                <a style="font-size: 12px;" class="btn btn-info" href="{% url 'reviews' %}">Rate our Site</a>
+
+                <div class="card">
+                    <div class="card-header" style="text-align: center;  background: white;">
+                        <legend>Ratings & Reviews</legend>
+                    </div>
+                    <div class="card-body" style="text-align: center;">
+                        <legend>{{ average_rating }} <i style="color: orange;" class="bi bi-star-fill"></i></legend>
+                        {% if count %}
+                        <p style="font-weight: bold;">{{count}} reviews</p>
+                        {% else %}
+                        <pre>No reviews yet.</pre>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer" style="text-align: right;  background: white;">
+                        <a style="font-size: 13px;" class="btn btn-outline-primary" href="{% url 'reviews' %}">Rate our Site <i class="bi bi-arrow-right-circle"></i></a>
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
                 <img src="https://img.freepik.com/free-vector/reading-book-illustration_114360-8532.jpg?w=740&t=st=1679932534~exp=1679933134~hmac=f579456a2098cdad1d93431f4c45b8a35907fb51d3a8b8acf2ff6d20237b63af" height="450" width="500" style="float: right;">

@@ -88,21 +88,21 @@
                 <div class="card">
                     <form method="post">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="id_review" style="font-weight: bold; margin-bottom: 10px;">Review:</label>
-                        <textarea class="form-control" id="id_review" name="review" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_rating" style="font-weight: bold; margin-bottom: 10px;">Rating:</label>
-                        <select class="form-control" id="id_rating" name="rating">
-                            <option value="1">1 star</option>
-                            <option value="2">2 stars</option>
-                            <option value="3">3 stars</option>
-                            <option value="4">4 stars</option>
-                            <option value="5">5 stars</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-outline-danger" style="font-size: 12px;">Save</button>
+                        <div class="form-group">
+                            <label for="id_review" style="font-weight: bold; margin-bottom: 10px;">Review:</label>
+                            <textarea class="form-control" id="id_review" name="review" rows="3">{{ object.review }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_rating" style="font-weight: bold; margin-bottom: 10px;">Rating:</label>
+                            <select class="form-control" id="id_rating" name="rating">
+                                <option value="1" {% if object.rating == 1 %}selected{% endif %}>1 star</option>
+                                <option value="2" {% if object.rating == 2 %}selected{% endif %}>2 stars</option>
+                                <option value="3" {% if object.rating == 3 %}selected{% endif %}>3 stars</option>
+                                <option value="4" {% if object.rating == 4 %}selected{% endif %}>4 stars</option>
+                                <option value="5" {% if object.rating == 5 %}selected{% endif %}>5 stars</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-outline-danger" style="font-size: 12px;">Save</button>
                     </form>
                 </div>
             </div>

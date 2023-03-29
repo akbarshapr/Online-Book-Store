@@ -1,5 +1,6 @@
 from django.db.models import Q
 from decimal import Decimal
+from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -15,6 +16,12 @@ from django.urls import reverse_lazy
 # Home Page
 class HomePageView(TemplateView):
     template_name = 'main/home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        average_rating = SiteReview.objects.all().aggregate(Avg('rating'))['rating__avg'] or 0
+        context['average_rating'] = average_rating
+        return context
 
 
 # Book Views
@@ -144,6 +151,11 @@ class SiteReviewView(ListView):
     context_object_name = 'reviews'
     template_name = 'main/review.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['count'] = context['reviews'].count()
+        return context
+
 
 class SiteReviewCreate(LoginRequiredMixin, CreateView):
     model = SiteReview
@@ -170,7 +182,7 @@ class SiteReviewDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return review.user == self.request.user
 
 
-class SiteReviewUpdate(LoginRequiredMixin, UpdateView):
+class SiteReviewUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = SiteReview
     fields = ['review', 'rating']
     template_name = 'main/create-review.html'
