@@ -101,10 +101,10 @@
         </div>
     </nav>
     <div class="container-fluid">
+        {% if cart_items %}
         <div class="title" style="text-align: center; justify-content: center; margin-bottom: 20px; display: flex;">
             <h2 style="margin-right: 20px;">My Cart</h2><img src="https://media.giphy.com/media/Aik2hwXn0dUTrVkbIP/giphy.gif" height="40px" width="40px">
         </div>
-        {% if cart_items %}
         <ul class="list-group">
             {% for cart_item in cart_items %}
             <li class="list-group-item">
@@ -131,8 +131,11 @@
             </li>
         </ul>
         {% else %}
-        <p>Your cart is empty.</p>
-        <a href="{% url 'books' %}" class="btn btn-outline-success">Continue shopping</a>
+        <div style="text-align: center;">
+            <img src="https://img.freepik.com/free-vector/empty-concept-illustration_114360-1233.jpg?w=740&t=st=1680200989~exp=1680201589~hmac=3aed62fb1c8a78d1bf8f9d290933966f8be87c28f9281c2a8a1a3cb4c065c6c5" width="400" height="400">
+            <p>Your cart is empty.</p>
+            <a href="{% url 'books' %}" style="font-size: 12px;" class="btn btn-outline-success">Continue shopping</a>
+        </div>
         {% endif %}
     </div>
     <footer class="site-footer">

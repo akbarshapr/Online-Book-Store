@@ -1,16 +1,18 @@
 import requests
+import json
 from django.db.models import Q
 from decimal import Decimal
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Book, MyProfile, Cart, CartItem, SiteReview
+from .models import Book, MyProfile, Cart, CartItem, SiteReview, Order
 
 from django.views.generic import TemplateView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -190,6 +192,7 @@ class SiteReviewUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return review.user == self.request.user
 
 
+# Open Library API for book recommendations
 def book_recommendations(request, query):
     url = f"https://openlibrary.org/search.json?q={query}&limit=10"
     response = requests.get(url)
@@ -208,3 +211,30 @@ def book_recommendations(request, query):
 
     context = {'books': books}
     return render(request, 'book/recommendations.html', context)
+
+
+# Payment Gateway
+class BookCheckoutView(LoginRequiredMixin, DetailView):
+    model = Book
+    template_name = 'book/checkout.html'
+
+
+def payment_complete(request):
+    body = json.loads(request.body)
+    print('BODY:', body)
+    product = Book.objects.get(id=body['productId'])
+    Order.objects.create(
+        product=product
+    )
+    return JsonResponse('Payment completed!', safe=False)
+
+
+class OrderListView(LoginRequiredMixin, ListView):
+    model = Order
+    context_object_name = 'orders'
+    template_name = 'book/orders.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['orders'] = context['orders'].filter(user=self.request.user)
+        return context

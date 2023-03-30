@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import HomePageView, BookList, BookDetail, MyProfileView, MyProfileCreate, MyProfileUpdate, \
     toggle_favorite, cart, add_to_cart, remove_from_cart, SiteReviewView, SiteReviewCreate, SiteReviewDelete, \
-    SiteReviewUpdate, book_recommendations
+    SiteReviewUpdate, book_recommendations, BookCheckoutView, OrderListView
 
 urlpatterns = [
     path('home/', HomePageView.as_view(), name='home'),
@@ -24,4 +24,7 @@ urlpatterns = [
 
     path('book-recommendations/<str:query>/', book_recommendations, name='book_recommendations'),
 
+    path('checkout/<int:pk>/', BookCheckoutView.as_view(), name='checkout'),
+
+    path('orders/', OrderListView.as_view(), name='orders')
 ]
