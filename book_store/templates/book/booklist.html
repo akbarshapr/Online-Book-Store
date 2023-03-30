@@ -19,7 +19,7 @@
             align: center;
         }
         .navbar {
-            padding: 20px;
+            padding: 50px;
             background: RebeccaPurple;
         }
         .navbar-brand {
@@ -197,10 +197,6 @@
             color: #666;
         }
     </style>
-    <script>
-
-
-    </script>
 </head>
 <body>
     <nav class="navbar">
@@ -209,6 +205,7 @@
         </p>
         <div class="ml-auto" style="margin-left: auto;">
             <a class="header-link" href="{% url 'home' %}">Home</a>
+            <a class="header-link" href="{% url 'book_recommendations' 'fiction' %}">Exclusive</a>
         </div>
             <div class="dropdown">
                 <button type="button" class="btn dropdown" data-bs-toggle="dropdown"><i style="font-size:20px;" class="bi bi-person-circle user-icon"></i></button>

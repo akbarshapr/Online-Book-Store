@@ -70,7 +70,9 @@
         .card {
             border: none;
             padding: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+            background-image: url('https://img.freepik.com/free-vector/earth-view-night-from-alien-planet-neon-space_33099-1876.jpg?w=826&t=st=1680155762~exp=1680156362~hmac=fff344dfc377f2fd23ff08f17ba88eebcf5afbcc8e639dae84f2daec01191cb4');
         }
         .contact-container {
             background-image: url('https://wallpaperaccess.com/full/645620.png');
@@ -150,19 +152,19 @@
                 <p style="font-size: 14px; font-weight: bold;">Enjoy your reading !</p>
 
                 <div class="card">
-                    <div class="card-header" style="text-align: center;  background: white;">
+                    <div class="card-header bg-transparent" style="text-align: center;  background: white;">
                         <legend>Ratings & Reviews</legend>
                     </div>
                     <div class="card-body" style="text-align: center;">
                         <legend>{{ average_rating }} <i style="color: orange;" class="bi bi-star-fill"></i></legend>
                         {% if count %}
-                        <p style="font-weight: bold;">{{count}} reviews</p>
+                        <p>{{count}} reviews !</p>
                         {% else %}
                         <pre>No reviews yet.</pre>
                         {% endif %}
                     </div>
-                    <div class="card-footer" style="text-align: right;  background: white;">
-                        <a style="font-size: 13px;" class="btn btn-outline-primary" href="{% url 'reviews' %}">Rate our Site <i class="bi bi-arrow-right-circle"></i></a>
+                    <div class="card-footer bg-transparent" style="text-align: right;  background: white;">
+                        <a style="font-size: 13px;" class="btn btn-outline-light" href="{% url 'reviews' %}">Rate our Site <i class="bi bi-arrow-right-circle"></i></a>
                     </div>
                 </div>
             </div>

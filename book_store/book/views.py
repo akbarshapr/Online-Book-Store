@@ -1,3 +1,4 @@
+import requests
 from django.db.models import Q
 from decimal import Decimal
 from django.db.models import Avg
@@ -19,6 +20,7 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['count'] = SiteReview.objects.count()
         average_rating = SiteReview.objects.all().aggregate(Avg('rating'))['rating__avg'] or 0
         context['average_rating'] = average_rating
         return context
@@ -151,11 +153,6 @@ class SiteReviewView(ListView):
     context_object_name = 'reviews'
     template_name = 'main/review.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['count'] = context['reviews'].count()
-        return context
-
 
 class SiteReviewCreate(LoginRequiredMixin, CreateView):
     model = SiteReview
@@ -191,3 +188,23 @@ class SiteReviewUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         review = self.get_object()
         return review.user == self.request.user
+
+
+def book_recommendations(request, query):
+    url = f"https://openlibrary.org/search.json?q={query}&limit=10"
+    response = requests.get(url)
+    data = response.json()
+    books = data.get('docs')
+
+    fallback_cover_url = '/static/images/fallback-cover.jpg'  # Change this to the path of your fallback image
+
+    for book in books:
+        if 'cover_i' in book:
+            book['cover_url'] = f"http://covers.openlibrary.org/b/id/{book['cover_i']}-M.jpg"
+        elif 'edition_key' in book:
+            book['cover_url'] = f"http://covers.openlibrary.org/b/olid/{book['edition_key'][0]}-M.jpg"
+        else:
+            book['cover_url'] = fallback_cover_url
+
+    context = {'books': books}
+    return render(request, 'book/recommendations.html', context)
