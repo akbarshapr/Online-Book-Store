@@ -41,6 +41,10 @@ class BookList(LoginRequiredMixin, ListView):
             context['books'] = context['books'].filter(
                 Q(title__icontains=search_input) | Q(author__icontains=search_input))
         context['search_input'] = search_input
+
+        user_profile = get_object_or_404(MyProfile, user=self.request.user)
+        context['user_profile'] = user_profile
+
         return context
 
 

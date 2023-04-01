@@ -96,6 +96,17 @@
             font-size: 14px;
             color: #666;
         }
+        @media (max-width: 767px) {
+            .img-mobile-size {
+                width: 100%;
+                height: auto;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .btn.btn-outline-light {
+                margin: 10px;
+            }
+        }
     </style>
     <script>
         $(document).ready(function() {
@@ -145,12 +156,11 @@
     </div>
     <div class="container-details" id="img-container" style="padding: 120px; padding-bottom: 200px; font-family: 'Nunito Sans', sans-serif;">
         <div class="row">
-            <div class="col-md-6" style="text-align: justify; padding-top: 60px;">
+            <div class="col-12 col-md-6" style="text-align: justify; padding-top: 60px;">
                 <h3>Explore Now!</h3>
                 <p>Create a profile for yourself and list your favourite books from our extensive collection.
                     We have some fantastic deals. Join our community right away.</p>
                 <p style="font-size: 14px; font-weight: bold;">Enjoy your reading !</p>
-
                 <div class="card">
                     <div class="card-header bg-transparent" style="text-align: center;  background: white;">
                         <legend>Ratings & Reviews</legend>
@@ -168,8 +178,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <img src="https://img.freepik.com/free-vector/reading-book-illustration_114360-8532.jpg?w=740&t=st=1679932534~exp=1679933134~hmac=f579456a2098cdad1d93431f4c45b8a35907fb51d3a8b8acf2ff6d20237b63af" height="450" width="500" style="float: right;">
+            <div class="col-12 col-md-6">
+                <img src="https://img.freepik.com/free-vector/reading-book-illustration_114360-8532.jpg?w=740&t=st=1679932534~exp=1679933134~hmac=f579456a2098cdad1d93431f4c45b8a35907fb51d3a8b8acf2ff6d20237b63af" height="450" width="500" class="img-fluid img-mobile-size" style="float: right;">
             </div>
         </div>
     </div>

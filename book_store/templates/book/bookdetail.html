@@ -116,7 +116,7 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3"><img src ="{{ books.image_url }}" class="card-img-top book-img" alt=".." style="width: 200px;"></div>
+            <div class="col-md-3 mb-3"><img src ="{{ books.image_url }}" class="card-img-top book-img" alt=".." style="width: 200px;"></div>
             <div class="col-md-9">
                 <div style="display: flex;">
                     <h4 class="card-title">{{ books.title|title }}</h4>
@@ -133,7 +133,7 @@
                         <p class="text-success"><strong>Available for purchase</strong></p>
                         <div style="display: flex; align-items: center;">
                             <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;"> &#8377 {{ books.price }} RS</p>
-                            <a class="btn btn-success" href="{% url 'add_to_cart' book_id=books.id %}" style="font-size: 12px; margin-left: 10px;">Add to cart</a>
+                            <a id="add-to-cart-btn" class="btn btn-success" href="{% url 'add_to_cart' book_id=books.id %}" style="font-size: 12px; margin-left: 10px;" onclick="alert('Item added to cart')">Add to cart</a>
                             {% if books.book_available is True %}
                             <a class="btn btn-primary" href="{% url 'checkout' books.pk %}" style="font-size: 12px; margin-left: 10px;">Buy Now</a>
                             {% else %}

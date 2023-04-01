@@ -92,11 +92,6 @@
             margin-top: 8px;
             padding: 5px;
         }
-        @media (max-width: 768px) {
-            .card {
-                width: 100%;
-        }
-        }
         .header-link {
             margin: 0 10px;
             padding: 5px;
@@ -105,11 +100,6 @@
             color: #f2f2f2;
             font-size: 12px;
             transition: background-color 0.3s ease;
-        }
-        .header-link:hover {
-            background-color: #f2f2f2;
-            color: #000;
-            text-decoration: None;
         }
         .user-icon {
             margin-right: 20px;
@@ -203,20 +193,18 @@
         <p class="navbar-brand">
             Reads.com
         </p>
-        <div class="ml-auto" style="margin-left: auto;">
-            <a class="header-link" href="{% url 'home' %}">Home</a>
-            <a class="header-link" href="{% url 'book_recommendations' 'fiction' %}">Exclusive</a>
+        <div class="dropdown">
+            <button type="button" class="btn dropdown" data-bs-toggle="dropdown"><i style="font-size:20px;" class="bi bi-person-circle user-icon"></i></button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'myprofile' %}">My Profile</a></li>
+                <li><a style="background: linear-gradient(to right, #ff0000, #0000ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" class="dropdown-item" href="{% url 'book_recommendations' 'fiction' %}">Exclusive</a></li>
+                <li><a class="dropdown-item" href="{% url 'mycart' %}">My Cart</a></li>
+                <li><a class="dropdown-item" href="{% url 'orders' %}">My Orders</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'home' %}">Home</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
         </div>
-            <div class="dropdown">
-                <button type="button" class="btn dropdown" data-bs-toggle="dropdown"><i style="font-size:20px;" class="bi bi-person-circle user-icon"></i></button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'myprofile' %}">My Profile</a></li>
-                    <li><a class="dropdown-item" href="{% url 'mycart' %}">My Cart</a></li>
-                    <li><a class="dropdown-item" href="{% url 'orders' %}">My Orders</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                </ul>
-            </div>
     </nav>
     <div class="container-fluid">
         <div class="search-wrapper">
@@ -229,14 +217,14 @@
             {% for book in books %}
             <div class="col-sm-3 d-flex align-items-stretch">
                 <div class="card" style="width: 200px;">
-                    {% if book in myprofile.favorites.all %}
-                    <a href="{% url 'toggle_favorite' book.id %}" class="favorite-link" onclick="">
-                        <i class="bi bi-bookmark-heart-fill"></i>
-                    </a>
+                    {% if book in user_profile.favorites.all %}
+                        <a href="{% url 'toggle_favorite' book.id %}" class="favorite-link" onclick="alert('Book removed from favorites'); return true;">
+                            <i class="bi bi-bookmark-heart-fill"></i>
+                        </a>
                     {% else %}
-                    <a href="{% url 'toggle_favorite' book.id %}" class="favorite-link" onclick="">
-                        <i class="bi bi-bookmark-heart-fill"></i>
-                    </a>
+                        <a href="{% url 'toggle_favorite' book.id %}" class="favorite-link" onclick="alert('Book added to favorites'); return true;">
+                            <i class="bi bi-bookmark-heart"></i>
+                        </a>
                     {% endif %}
                     <a href="{% url 'bookdetail' pk=book.pk %}"><img src ="{{ book.image_url }}" class = "card-img-top" alt=".." style=""></a>
                     <div class="body">

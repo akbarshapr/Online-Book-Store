@@ -3,6 +3,8 @@
 <head>
     <title>reads.com</title>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap" rel="stylesheet">
@@ -64,6 +66,7 @@
             border-radius: 50%;
         }
         .scrollable {
+            max-width: 100%;
             height: 450px;
             overflow-y: scroll;
             scroll-behavior: smooth;
@@ -111,6 +114,19 @@
             font-size: 14px;
             color: #666;
         }
+        @media (max-width: 767px) {
+            .card p {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+            .card img {
+                height: 60px;
+                width: 60px;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+
     </style>
     <script>
         $(document).ready(function(){
@@ -130,19 +146,19 @@
     <div class="container-fluid">
         <div style="display: flex;">
             <h4 style="margin-bottom: 20px;">Reviews</h4>
-            <a style="font-weight: bold; font-size: 20px; color: Red; border: none; margin-left: 450px;" href="{% url 'reviewcreate' %}"><i class="bi bi-plus-circle"></i></a>
+            <a style="font-weight: bold; font-size: 20px; color: Red; border: none; margin-left: 20px;" href="{% url 'reviewcreate' %}"><i class="bi bi-plus-circle"></i></a>
         </div>
         <div class="row">
             <div class="col-lg-6 scrollable" style="height: 450px; overflow-y: scroll;">
                 {% for review in reviews %}
                 <div class="card">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 col-4">
                             {% if review.name %}
                                 <img class="pfp" src="{{ review.name.pfp.url }}" alt="Profile Picture" height="80" width="80">
                             {% endif %}
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-8 col-5">
                             <p style="font-weight: bold;">{{ review.name }}</p>
                             {% if review.user == request.user %}
                             <p><a style="text-decoration: none; color: #000;" href="{% url 'reviewupdate' review.pk %}">{{ review.review }}</a></p>
@@ -150,7 +166,7 @@
                             <p>{{ review.review }}</p>
                             {% endif %}
                         </div>
-                        <div class="col-sm-2" style="padding: 10px;">
+                        <div class="col-sm-2 col-3" style="padding: 10px;">
                             {% if review.user == request.user %}
                             <div class="dropdown">
                                 <button style="font-size: 10px;" class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -193,7 +209,7 @@
                 {% endfor %}
             </div>
             <div class="col-lg-6">
-                <img src="https://img.freepik.com/free-vector/feedback-concept-illustration_114360-4928.jpg?w=740&t=st=1680021769~exp=1680022369~hmac=b96f039c0131d6246833b0f2419df74e722058c871c3e5399ee022151954d5d0" height="450" width="450" style="float: right;">
+                <img src="https://img.freepik.com/free-vector/feedback-concept-illustration_114360-4928.jpg?w=740&t=st=1680021769~exp=1680022369~hmac=b96f039c0131d6246833b0f2419df74e722058c871c3e5399ee022151954d5d0" height="450" width="450" class="img-fluid img-mobile-size" style="float: right;">
             </div>
         </div>
     </div>

@@ -213,6 +213,11 @@
             font-size: 14px;
             color: #666;
         }
+        @media screen and (max-width: 767px) {
+            .row > div {
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -228,7 +233,7 @@
         {% if myprofile %}
             {% for profile in myprofile %}
             <div class="row">
-                <div class="col-sm-4 profile-info">
+                <div class="col-sm-4 col-xs-12 profile-info">
                     {% if profile.pfp and profile.pfp.file %}
                     <img class="profile" src="{{ profile.pfp.url }}" alt="{{ profile.name }}">
                     {% else %}
@@ -247,7 +252,7 @@
                         <a href="{% url 'editprofile' %}"><button type="button" class="btn btn-success">Edit Profile</button></a>
                     </div>
                 </div>
-                <div class="col-sm-3 favorite-books">
+                <div class="col-sm-3 col-xs-12 favorite-books">
                     <h6><b>Favorites</b></h6>
                     <div class="row">
                         {% for book in profile.favorites.all|slice:":4" %}
@@ -296,7 +301,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-sm-4 other-details">
+                <div class="col-sm-4 col-xs-12 other-details">
                     <div class="row">
                         <h6 style="text-align: center; font-weight: bold; margin: 0;">Delivery Address</h6>
                         <div class="col-md-12 basic-wrapper">
@@ -327,7 +332,7 @@
 <!--        if profile not updated -->
         {% else %}
             <div class="row">
-                <div class="col-sm-4 profile-info">
+                <div class="col-sm-4 col-xs-12 profile-info">
                     <div class="blank-container">
                         <img class="profile-blank" src="" alt="">
                         <div class="img-text">
@@ -342,13 +347,13 @@
                         <a href="{% url 'createprofile' %}"><button type="button" class="btn btn-success">Update Profile</button></a>
                     </div>
                 </div>
-                <div class="col-sm-3 favorite-books">
+                <div class="col-sm-3 col-xs-12 favorite-books">
                     <h6><b>Favorites</b></h6>
                     <div class="row">
                         <p>No favorite books yet.</p>
                     </div>
                 </div>
-                <div class="col-sm-4 other-details">
+                <div class="col-sm-4 col-xs-12 other-details">
                     <div class="row">
                         <h6 style="text-align: center; font-weight: bold; margin: 0;">Delivery Address</h6>
                         <div class="col-md-12 basic-wrapper">

@@ -75,6 +75,11 @@
             font-size: 14px;
             color: #666;
         }
+        @media screen and (max-width: 767px) {
+            .card {
+                width: 100%;
+            }
+        }
     </style>
     <script>
 		function getCookie(name) {
@@ -146,7 +151,7 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3"><img src ="{{ book.image_url }}" class="card-img-top book-img" alt=".." style="width: 230px;"></div>
+            <div class="col-md-3 mb-3"><img src ="{{ book.image_url }}" class="card-img-top book-img" alt=".." style="width: 230px;"></div>
             <div class="col-md-9" style="text-align: center;">
                 <div class="card">
                     <h3 style="margin: 20px;">Payment for {{ book.title|title }}</h3>
