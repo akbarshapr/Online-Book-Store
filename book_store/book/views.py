@@ -196,6 +196,7 @@ class SiteReviewUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return review.user == self.request.user
 
 
+# Open Library API for book recommendations
 def book_recommendations(request, query):
     url = f"https://openlibrary.org/search.json?q={query}&limit=50"
     response = requests.get(url)
