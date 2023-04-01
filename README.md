@@ -1,4 +1,4 @@
-# Online-Book-Store
+# Django-Online-Book-Store
 
 This is an online bookstore project built using Django and Python. The project allows users to browse books, add books to their carts, and checkout using the Paypal Payment Gateway. It also includes features such as user profiles, public reviews and ratings, and an exclusive feature of book recommendations using the Open Library API. 
 
