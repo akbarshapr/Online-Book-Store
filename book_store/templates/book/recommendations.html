@@ -104,7 +104,7 @@
             {% for book in books %}
             <div class="col-sm-3 d-flex align-items-stretch">
                 <div class="card" style="width: 200px;">
-                    <img src="{{ book.cover_url }}" alt="{{ book.title }}" onerror="this.src='/static/images/fallback-cover.jpg'" class="card-img-top">
+                    <img src="{{ book.cover_url }}" class="card-img-top" alt="{{ book.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ book.title }}</h5>
                         <p>{{ book.author_name|join:", " }}</p>

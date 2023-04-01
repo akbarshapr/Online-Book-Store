@@ -196,24 +196,19 @@ class SiteReviewUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return review.user == self.request.user
 
 
-# Open Library API for book recommendations
 def book_recommendations(request, query):
-    url = f"https://openlibrary.org/search.json?q={query}&limit=10"
+    url = f"https://openlibrary.org/search.json?q={query}&limit=50"
     response = requests.get(url)
     data = response.json()
     books = data.get('docs')
 
-    fallback_cover_url = '/static/images/fallback-cover.jpg'  # Change this to the path of your fallback image
-
+    cover_books = []
     for book in books:
         if 'cover_i' in book:
             book['cover_url'] = f"http://covers.openlibrary.org/b/id/{book['cover_i']}-M.jpg"
-        elif 'edition_key' in book:
-            book['cover_url'] = f"http://covers.openlibrary.org/b/olid/{book['edition_key'][0]}-M.jpg"
-        else:
-            book['cover_url'] = fallback_cover_url
+            cover_books.append(book)
 
-    context = {'books': books}
+    context = {'books': cover_books}
     return render(request, 'book/recommendations.html', context)
 
 
