@@ -35,8 +35,12 @@ Contributions are always welcome! If you find any bugs or want to suggest new fe
 Adding some screenshots...
 
 ![image](https://user-images.githubusercontent.com/102457528/229275657-3ecb447d-9ef8-4a2d-a11f-4cdeb7eca737.png)
+
 ![image](https://user-images.githubusercontent.com/102457528/229275609-78e2f8b5-78bf-4ad6-b343-2fdb3f1f7ca7.png)
+
 ![image](https://user-images.githubusercontent.com/102457528/229275650-e98e0f27-a1f6-4e2d-b3b8-bfc3efd41627.png)
+
 ![image](https://user-images.githubusercontent.com/102457528/229275684-45468f5a-510f-456d-ab60-2d05e91f7bef.png)
+
 ![image](https://user-images.githubusercontent.com/102457528/229275701-03b66a6f-9611-4350-b23c-392355f8468f.png)
 
