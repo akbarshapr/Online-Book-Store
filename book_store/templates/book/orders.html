@@ -65,6 +65,16 @@
             font-size: 14px;
             color: #666;
         }
+        @media (max-width: 767px) {
+            .card {
+                margin: 20px;
+            }
+            .site-footer {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -94,7 +104,7 @@
         </div>
         {% else %}
         <div style="text-align: center;">
-            <img src="https://img.freepik.com/free-vector/shrug-concept-illustration_114360-8843.jpg?w=740&t=st=1680201767~exp=1680202367~hmac=73480acb23f73af94032600aafd014cf07e536b4e207267caca1648e78c2be32" width="300" height="300">
+            <img src="https://img.freepik.com/free-vector/shrug-concept-illustration_114360-8843.jpg?w=740&t=st=1680201767~exp=1680202367~hmac=73480acb23f73af94032600aafd014cf07e536b4e207267caca1648e78c2be32" class="img-fluid img-mobile-size" width="300" height="300">
             <p>You haven't ordered anything yet.</p>
             <a href="{% url 'books' %}" style="font-size: 12px;" class="btn btn-outline-success">Continue shopping</a>
         </div>

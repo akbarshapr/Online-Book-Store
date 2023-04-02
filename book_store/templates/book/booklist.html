@@ -24,7 +24,7 @@
         }
         .navbar-brand {
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             color: #f2f2f2;
             text-decoration: none;
         }
@@ -158,24 +158,6 @@
             color: #fff;
             text-decoration: None;
         }
-        .bi-bookmark-heart {
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin: 10px;
-            font-size: 22px;
-            color: red;
-            transition: transform 0.5s ease-in-out;
-        }
-        .bi-bookmark-heart-fill {
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin: 10px;
-            font-size: 22px;
-            color: red;
-            transition: transform 0.5s ease-in-out;
-        }
         .site-footer {
             background-color: #f8f8f8;
             padding: 20px 0;
@@ -186,11 +168,23 @@
             font-size: 14px;
             color: #666;
         }
+        @media (max-width: 767px) {
+            .container-fluid {
+                padding: 80px;
+            }
+            .search {
+                width: 200px;
+                margin-bottom: 10px;
+            }
+            .bi-search {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <p class="navbar-brand">
+        <p class="navbar-brand mx-auto">
             Reads.com
         </p>
         <div class="dropdown">
@@ -209,7 +203,7 @@
     <div class="container-fluid">
         <div class="search-wrapper">
             <form method="GET">
-                <input class="search" type="text" name="search-area" value="{{search_input}}" placeholder="Search with Book name or author name">
+                <input class="search" type="text" name="search-area" value="{{search_input}}" placeholder="Search Here!">
                 <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
             </form>
         </div>
@@ -217,15 +211,6 @@
             {% for book in books %}
             <div class="col-sm-3 d-flex align-items-stretch">
                 <div class="card" style="width: 200px;">
-                    {% if book in user_profile.favorites.all %}
-                        <a href="{% url 'toggle_favorite' book.id %}" class="favorite-link" onclick="alert('Book removed from favorites'); return true;">
-                            <i class="bi bi-bookmark-heart-fill"></i>
-                        </a>
-                    {% else %}
-                        <a href="{% url 'toggle_favorite' book.id %}" class="favorite-link" onclick="alert('Book added to favorites'); return true;">
-                            <i class="bi bi-bookmark-heart"></i>
-                        </a>
-                    {% endif %}
                     <a href="{% url 'bookdetail' pk=book.pk %}"><img src ="{{ book.image_url }}" class = "card-img-top" alt=".." style=""></a>
                     <div class="body">
                         <h5 class="card-title">{{ book.title }}</h5>

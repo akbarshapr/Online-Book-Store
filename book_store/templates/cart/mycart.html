@@ -89,6 +89,13 @@
             font-size: 14px;
             color: #666;
         }
+        @media (max-width: 767px) {
+            .site-footer {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -132,7 +139,7 @@
         </ul>
         {% else %}
         <div style="text-align: center;">
-            <img src="https://img.freepik.com/free-vector/empty-concept-illustration_114360-1233.jpg?w=740&t=st=1680200989~exp=1680201589~hmac=3aed62fb1c8a78d1bf8f9d290933966f8be87c28f9281c2a8a1a3cb4c065c6c5" width="400" height="400">
+            <img src="https://img.freepik.com/free-vector/empty-concept-illustration_114360-1233.jpg?w=740&t=st=1680200989~exp=1680201589~hmac=3aed62fb1c8a78d1bf8f9d290933966f8be87c28f9281c2a8a1a3cb4c065c6c5" width="400" height="400" class="img-fluid img-mobile-size">
             <p>Your cart is empty.</p>
             <a href="{% url 'books' %}" style="font-size: 12px;" class="btn btn-outline-success">Continue shopping</a>
         </div>

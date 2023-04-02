@@ -13,7 +13,7 @@
             background: #f2f2f2;
         }
         .container-fluid {
-            padding: 100px;
+            padding: 60px;
             padding-top: 50px;
             padding-bottom: 60px;
             align: center;
@@ -93,21 +93,22 @@
             font-size: 14px;
             color: #666;
         }
-        @media (max-width: 768px) {
-            .container-fluid {
+        @media (max-width: 767px) {
+            body {
                 margin: 0;
-                padding: 100px;
             }
             .card {
-                width: 120%;
-                padding: 20px;
+                max-width: 100%;
+                padding: 30px;
+            }
+            .card p {
+                font-size: 14px;
             }
             input {
                 width: 100%;
                 margin-bottom: 10px;
             }
         }
-
     </style>
 </head>
 <body>
