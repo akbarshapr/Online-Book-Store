@@ -3,6 +3,7 @@ import json
 from django.db.models import Q
 from decimal import Decimal
 from django.db.models import Avg
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -168,9 +169,14 @@ class SiteReviewCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('reviews')
 
     def form_valid(self, form):
+        try:
+            myprofile = MyProfile.objects.get(user=self.request.user)
+            form.instance.name = myprofile
+        except MyProfile.DoesNotExist:
+            messages.error(self.request, 'Please create your profile before submitting a review.')
+            return redirect('reviewcreate')
+
         form.instance.user = self.request.user
-        myprofile = MyProfile.objects.get(user=self.request.user)
-        form.instance.name = myprofile
         return super().form_valid(form)
 
 
