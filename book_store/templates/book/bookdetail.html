@@ -130,7 +130,11 @@
                         {% endfor %}
                     </li>
                     <li>
+                        {% if books.book_available is True %}
                         <p class="text-success"><strong>Available for purchase</strong></p>
+                        {% else %}
+                        <p class="text-danger"><strong>Out of Stock</strong></p>
+                        {% endif %}
                         <div style="display: flex; align-items: center;">
                             <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;"> &#8377 {{ books.price }} RS</p>
                             <a id="add-to-cart-btn" class="btn btn-success" href="{% url 'add_to_cart' book_id=books.id %}" style="font-size: 12px; margin-left: 10px;" onclick="alert('Item added to cart')">Add to cart</a>
