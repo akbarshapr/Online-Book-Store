@@ -42,5 +42,4 @@ Adding some screenshots...
 
 ![image](https://user-images.githubusercontent.com/102457528/229275684-45468f5a-510f-456d-ab60-2d05e91f7bef.png)
 
-![image](https://user-images.githubusercontent.com/102457528/229275701-03b66a6f-9611-4350-b23c-392355f8468f.png)
-
+![image](https://user-images.githubusercontent.com/102457528/229301619-b98379f6-4c2b-4bff-843a-a7f5a4f19c22.png)
