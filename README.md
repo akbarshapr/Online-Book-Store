@@ -2,6 +2,8 @@
 
 This is an online bookstore project built using Django and Python. The project allows users to browse books, add books to their carts, and checkout using the Paypal Payment Gateway. It also includes features such as user profiles, public reviews and ratings, and an exclusive feature of book recommendations using the Open Library API. 
 
+Check out the page <a href="https://akbarsha.pythonanywhere.com/book/home/">here.</a>
+
 <img src="https://media.giphy.com/media/Vl15J2CSrxChJff5qT/giphy.gif" width=80 height=80>
 
 - Languages used :- Python, HTML, CSS, Javascript, Bootstrap
@@ -38,7 +40,7 @@ Adding some screenshots...
 
 ![image](https://user-images.githubusercontent.com/102457528/229275657-3ecb447d-9ef8-4a2d-a11f-4cdeb7eca737.png)
 
-![image](https://user-images.githubusercontent.com/102457528/229275650-e98e0f27-a1f6-4e2d-b3b8-bfc3efd41627.png)
+![image](https://user-images.githubusercontent.com/102457528/230014882-3ffc4d29-b07b-4579-af1e-a1e1448c4265.png)
 
 ![image](https://user-images.githubusercontent.com/102457528/229275684-45468f5a-510f-456d-ab60-2d05e91f7bef.png)
 
